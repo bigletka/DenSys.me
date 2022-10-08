@@ -3,13 +3,13 @@ from django.forms import ModelForm
 from .models import User
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
 from django.core.validators import RegexValidator
 
 
 user = get_user_model
 
-class UserCreateForm(forms.ModelForm):
+class UserCreateForm(UserCreationForm):
     """
     Create user form
     """
@@ -21,4 +21,4 @@ class UserCreateForm(forms.ModelForm):
     #phone_number = forms.CharField(label='Phone Number', validators=[RegexValidator(regex = r"^\+?1?\d{8,15}$")])
     class Meta:
         model = User
-        fields = ('__all__')
+        fields = ('email', 'phone_number', 'government_id')

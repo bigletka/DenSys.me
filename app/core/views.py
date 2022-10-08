@@ -1,3 +1,4 @@
+import email
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
@@ -14,7 +15,7 @@ def loginPage(request):
         password = request.POST.get('password')
 
         try:
-            user = get_user_model.objects.get(email=email)
+            user = get_user_model().objects.get(email=email)
         except:
             messages.error(request, "User does not exist")
         
@@ -39,11 +40,15 @@ def logoutUser(request):
 
 def registerUser(request):
     form = UserCreateForm()
+    email = request.POST.get('email')
+    password = request.POST.get('password')
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         if form.is_valid():
-            user = get_user_model.objects.create_user(request.POST)
-    return render(request, 'register.html', {'form':form})
+            user = form.save()
+            user = get_user_model().objects.create_user(email=email, password=password)
+            return redirect('home')
+    return render(request, 'register.html', {'form':form})  
 
 
 
