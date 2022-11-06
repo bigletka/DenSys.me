@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
-    
+    'history.apps.HistoryConfig',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'app.urls'
 
@@ -71,7 +73,9 @@ TEMPLATES = [
         },
     },
 ]
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
